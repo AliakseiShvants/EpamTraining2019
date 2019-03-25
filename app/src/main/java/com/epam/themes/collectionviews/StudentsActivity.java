@@ -20,7 +20,7 @@ import java.util.List;
 
 public class StudentsActivity extends AppCompatActivity {
 
-    public static final int PAGE_SIZE = 6;
+    public static final int PAGE_SIZE = 2;
     public static final int MAX_VISIBLE_ITEMS = 18;
     private final IWebService<Student> studentsWebService = new StudentsWebService();
 
@@ -89,8 +89,8 @@ public class StudentsActivity extends AppCompatActivity {
         studentsWebService.getEntities(pStartPosition, pEndPosition, new ICallback<List<Student>>() {
 
             @Override
-            public void onResult(List<Student> pResult) {
-                adapter.addItems(pResult);
+            public void onResult(List<Student> result) {
+                adapter.addItems(result);
                 isLoading = false;
             }
         });

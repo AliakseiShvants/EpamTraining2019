@@ -44,7 +44,7 @@ public class StudentView extends CompoundRelativeLayout {
     public void onViewInflated(@NonNull final Context context) {
         nameView = findViewById(R.id.nameView);
         hwCountView = findViewById(R.id.hwCountView);
-        avatarView = findViewById(R.id.lessonAvatarView);
+        avatarView = findViewById(R.id.studentAvatarView);
     }
 
     @Override
