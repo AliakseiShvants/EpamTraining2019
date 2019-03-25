@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="StudentView">
+        <attr name="studentAvatar" format="integer"/>
+        <attr name="studentName" format="string"/>
+        <attr name="studentHwCount" format="string"/>
+    </declare-styleable>
+
     <declare-styleable name="LessonView">
-        <attr name="lessonDate" format="string" />
-        <attr name="lessonTheme" format="string" />
+        <attr name="lessonDate" format="string"/>
+        <attr name="lessonTheme" format="string"/>
     </declare-styleable>
 </resources>

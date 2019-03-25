@@ -28,7 +28,7 @@
             android:id="@+id/lesson_compound_view"
             layout="@layout/compound_view_item" />
 
-        <com.epam.themes.uicomponents.LessonView
+        <com.epam.themes.uicomponents.StudentView
             android:id="@+id/collectionComponentsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

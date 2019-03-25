@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -34,14 +35,16 @@ public class CollectionViewsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable final Bundle pSavedInstanceState) {
-        super.onCreate(pSavedInstanceState);
 
+        super.onCreate(pSavedInstanceState);
         setContentView(R.layout.activity_collection_views);
+
 
         mTabView = findViewById(R.id.tabView);
         mPagerView = findViewById(R.id.pagerView);
         mPagerView.setAdapter(new PageFragmentAdapter(getSupportFragmentManager()));
         mTabView.setupWithViewPager(mPagerView);
+
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 //        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
@@ -68,7 +71,7 @@ public class CollectionViewsActivity extends AppCompatActivity {
 //                super.getItemOffsets(outRect, view, parent, state);
 //            }
 //        });
-        new ItemTouchHelper(new ItemTouchCallback(mRecyclerView, adapter)).attachToRecyclerView(mRecyclerView);
+//        new ItemTouchHelper(new ItemTouchCallback(mRecyclerView, adapter)).attachToRecyclerView(mRecyclerView);
 
         findViewById(R.id.studentsView).setOnClickListener(new View.OnClickListener() {
             @Override

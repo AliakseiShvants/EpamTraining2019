@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 public interface ICompoundView {
 
-    void onViewInflated(@NonNull final Context pContext);
+    void onViewInflated(@NonNull final Context context);
 
     @LayoutRes
     int getLayoutResId();

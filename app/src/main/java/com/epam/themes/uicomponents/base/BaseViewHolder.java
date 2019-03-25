@@ -6,8 +6,8 @@ import android.view.View;
 
 public class BaseViewHolder<T extends View> extends RecyclerView.ViewHolder {
 
-    public BaseViewHolder(@NonNull final T pItemView) {
-        super(pItemView);
+    public BaseViewHolder(@NonNull final T itemView) {
+        super(itemView);
     }
 
     public T getView() {

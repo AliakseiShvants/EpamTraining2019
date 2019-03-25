@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.epam.themes.uicomponents.LessonView;
+import com.epam.themes.uicomponents.StudentView;
 import com.epam.themes.uicomponents.base.BaseViewHolder;
 
 import java.util.ArrayList;
@@ -22,11 +23,8 @@ public class LessonViewAdapter extends RecyclerView.Adapter<BaseViewHolder<Lesso
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final BaseViewHolder<LessonView> viewHolder,
-                                 final int pIndex) {
-        //TODO Bind data by index
-        viewHolder
-                .getView()
+    public void onBindViewHolder(@NonNull BaseViewHolder<LessonView> viewHolder, int i) {
+        ((LessonView)viewHolder.itemView)
                 .setLessonDate("14.03.2019")
                 .setLessonTheme("Collection components");
     }

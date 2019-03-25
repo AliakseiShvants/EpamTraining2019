@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/orange100">
+
+    <ImageView
+        android:id="@+id/studentAvatarView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="@null"
+         />
+
+    <TextView
+        android:id="@+id/nameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/four_intents"
+        android:layout_toEndOf="@id/studentAvatarView"
+        android:layout_alignBaseline="@id/studentAvatarView"
+        android:textStyle="bold"
+        android:textSize="@dimen/l_text_size"
+         />
+
+    <TextView
+        android:id="@+id/hwCountView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/studentAvatarView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/two_intents"
+        android:textSize="@dimen/xl_text_size"
+         />
+</merge>
+    

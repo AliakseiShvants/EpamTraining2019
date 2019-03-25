@@ -7,4 +7,9 @@
     <color name="real_black">#ff000000</color>
     <color name="real_white">#fff</color>
     <color name="blue_50">#E3F2FD</color>
+
+    <color name="hw1403Primary">#FF6D00</color>
+    <color name="hw1403Dark">#FF6D00</color>
+
+    <color name="orange100">#FFE0B2</color>
 </resources>

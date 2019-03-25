@@ -1,32 +1,51 @@
 package com.epam.themes.backend.entities;
 
+import android.support.annotation.DrawableRes;
+
 public class Student {
 
-    private Long mId;
-    private String mName;
-    private int mHwCount;
+    private Long id;
+    @DrawableRes
+    private int avatarId;
+    private String name;
+    private int hwCount;
 
-    public Long getId() {
-        return mId;
+    public Student(long id, int avatarId, String name, int hwCount) {
+        this.id = id;
+        this.avatarId = avatarId;
+        this.name = name;
+        this.hwCount = hwCount;
     }
 
-    public void setId(Long mId) {
-        this.mId = mId;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getAvatarId() {
+        return avatarId;
+    }
+
+    public void setAvatarId(@DrawableRes int avatarId) {
+        this.avatarId = avatarId;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        this.mName = name;
+        this.name = name;
     }
 
     public int getHwCount() {
-        return mHwCount;
+        return hwCount;
     }
 
     public void setHwCount(int hwCount) {
-        mHwCount = hwCount;
+        this.hwCount = hwCount;
     }
 }

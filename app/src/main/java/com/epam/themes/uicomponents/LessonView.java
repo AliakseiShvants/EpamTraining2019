@@ -42,7 +42,7 @@ public class LessonView extends CompoundRelativeLayout {
     public void onViewInflated(@NonNull final Context pContext) {
         mDateView = findViewById(R.id.dateView);
         mThemeView = findViewById(R.id.themeView);
-        mAvatarView = findViewById(R.id.avatarView);
+        mAvatarView = findViewById(R.id.lessonAvatarView);
     }
 
     @Override
