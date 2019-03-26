@@ -9,6 +9,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.epam.cleancodetest.R;
 import com.epam.themes.backend.IWebService;
@@ -86,13 +88,25 @@ public class StudentsActivity extends AppCompatActivity {
 
         recyclerView.setItemAnimator(new DefaultItemAnimator() {
             @Override
-            public boolean animateMove(RecyclerView.ViewHolder holder, int fromX, int fromY, int toX, int toY) {
+            public boolean animateMove(RecyclerView.ViewHolder holder, int fromX, int fromY,
+                                       int toX, int toY) {
                 return super.animateMove(holder, fromX, fromY, toX, toY);
             }
         });
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
+
+        findViewById(R.id.button_add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                createAddEntityDialog();
+            }
+        });
+    }
+
+    private void createAddEntityDialog() {
+        final LinearLayout addLayout = new LinearLayout(StudentsActivity.this);
     }
 
     private void loadMoreItems(final int pStartPosition, final int pEndPosition) {

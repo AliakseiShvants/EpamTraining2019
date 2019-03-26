@@ -10,11 +10,15 @@ public class Student {
     private String name;
     private int hwCount;
 
-    public Student(long id, int avatarId, String name, int hwCount) {
-        this.id = id;
+    public Student(int avatarId, String name, int hwCount) {
         this.avatarId = avatarId;
         this.name = name;
         this.hwCount = hwCount;
+    }
+
+    public Student(long id, int avatarId, String name, int hwCount) {
+        this(avatarId, name, hwCount);
+        this.id = id;
     }
 
     public Long getId() {

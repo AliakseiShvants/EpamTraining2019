@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.epam.cleancodetest.R;
+import com.epam.themes.backend.IWebService;
+import com.epam.themes.backend.StudentsWebService;
 import com.epam.themes.backend.entities.Student;
 import com.epam.themes.uicomponents.StudentView;
 
@@ -23,6 +25,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
 
     private final LayoutInflater inflater;
     private final List<Student> students = new ArrayList<>();
+    private final IWebService<Student> service = new StudentsWebService();
     private boolean isShowLastViewAsLoading = false;
 
     public StudentsAdapter(final Context context) {
@@ -155,5 +158,11 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
         ViewHolder(final View view) {
             super(view);
         }
+    }
+
+    public void addStudent(final Student student) {
+        service.addEntity(student);
+        students.add(student);
+        notifyDataSetChanged();
     }
 }

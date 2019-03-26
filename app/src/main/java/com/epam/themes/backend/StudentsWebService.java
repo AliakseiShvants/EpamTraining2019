@@ -9,11 +9,13 @@ import com.epam.themes.util.ICallback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class StudentsWebService implements IWebService<Student> {
 
     private List<Student> students = new ArrayList<>();
     private Handler mHandler = new Handler(Looper.getMainLooper());
+    private AtomicLong idGenerator = new AtomicLong(18);
 
     {
         students.add(new Student(1, R.drawable.icon1, "Aliaksei Sh", 6));
@@ -72,5 +74,13 @@ public class StudentsWebService implements IWebService<Student> {
         }
 
         students.remove(removedStudent);
+    }
+
+    @Override
+    public void addEntity(final Student student) {
+        final long id = idGenerator.incrementAndGet();
+        final Student newStudent = new Student(id, student.getAvatarId(), student.getName(),
+                student.getHwCount());
+        students.add(newStudent);
     }
 }
