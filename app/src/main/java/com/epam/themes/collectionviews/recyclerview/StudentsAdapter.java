@@ -3,16 +3,15 @@ package com.epam.themes.collectionviews.recyclerview;
 import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.epam.cleancodetest.R;
-import com.epam.themes.backend.IWebService;
-import com.epam.themes.backend.StudentsWebService;
 import com.epam.themes.backend.entities.Student;
 import com.epam.themes.uicomponents.StudentView;
-import com.epam.themes.uicomponents.base.BaseViewHolder;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,13 +19,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private boolean isShowLastViewAsLoading = false;
+public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private final List<Student> students = new ArrayList<>();
-    private final IWebService<Student> studentsService = new StudentsWebService();
+    private boolean isShowLastViewAsLoading = false;
 
     public StudentsAdapter(final Context context) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -34,20 +31,20 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
-                                                      @ViewType final int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
+                                         @ViewType final int viewType) {
         if (viewType == ViewType.STUDENT) {
-            return new BaseViewHolder<>(new StudentView(parent.getContext()));
+            return new ViewHolder(new StudentView(parent.getContext()));
         } else {
-            return new BaseViewHolder<>(inflater.inflate(R.layout.layout_progress, parent,
-                    false));
+            return new ViewHolder(inflater.inflate(R.layout.layout_progress, parent, false));
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder,
-                                 final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
+
         if (getItemViewType(position) == ViewType.STUDENT) {
+
             final Student student = students.get(position);
 
             ((StudentView) viewHolder.itemView)
@@ -70,11 +67,12 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        if (isShowLastViewAsLoading) {
-            return students.size() + 1;
-        } else {
-            return students.size();
-        }
+//        if (isShowLastViewAsLoading) {
+//            return students.size() + 1;
+//        } else {
+//            return students.size();
+//        }
+        return students.size();
     }
 
     public void setShowLastViewAsLoading(final boolean isShow) {
@@ -89,15 +87,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
-    @IntDef({ViewType.STUDENT, ViewType.LOADING})
-    @Retention(RetentionPolicy.SOURCE)
-    @interface ViewType {
-
-        int STUDENT = 0;
-        int LOADING = 1;
-    }
-
-    public void onItemMove(final int fromPosition, final int toPosition) {
+    public void onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(students, i, i + 1);
@@ -111,13 +101,59 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    public void onItemDismiss(final int adapterPosition) {
+    public void onItemDismiss(int adapterPosition) {
         deleteByIndex(adapterPosition);
     }
 
-    public void deleteByIndex(final int id) {
-        studentsService.removeEntity((long) id);
-        students.remove(id);
-        notifyItemRemoved(id);
+    public void deleteByIndex(int i) {
+        students.remove(i);
+        notifyItemRemoved(i);
+    }
+
+    public void updateItems(final List<Student> items) {
+        students.clear();
+        students.addAll(items);
+        /*
+           notifyDataSetChanged();
+           notifyItemRangeChanged();
+           notifyItemMoved();
+         */
+        DiffUtil.calculateDiff(new DiffUtil.Callback() {
+
+            @Override
+            public int getOldListSize() {
+                return 0;
+            }
+
+            @Override
+            public int getNewListSize() {
+                return 0;
+            }
+
+            @Override
+            public boolean areItemsTheSame(int i, int i1) {
+                return false;
+            }
+
+            @Override
+            public boolean areContentsTheSame(int i, int i1) {
+                return false;
+            }
+        }).dispatchUpdatesTo(this);
+    }
+
+    @IntDef({ViewType.STUDENT, ViewType.LOADING})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface ViewType {
+
+        int STUDENT = 0;
+        int LOADING = 1;
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        ViewHolder(final View view) {
+            super(view);
+        }
     }
 }
