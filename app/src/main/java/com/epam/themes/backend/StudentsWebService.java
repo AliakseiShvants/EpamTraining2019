@@ -9,12 +9,10 @@ import com.epam.themes.util.ICallback;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class StudentsWebService implements IWebService<Student> {
 
     private List<Student> students = new ArrayList<>();
-//    private Random mRandom = new Random();
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     {
@@ -47,7 +45,7 @@ public class StudentsWebService implements IWebService<Student> {
     }
 
     @Override
-    public void getEntities(ICallback<List<Student>> callback) {
+    public void getEntities(final ICallback<List<Student>> callback) {
     }
 
     @Override
@@ -64,7 +62,15 @@ public class StudentsWebService implements IWebService<Student> {
     }
 
     @Override
-    public void removeEntity(Long id) {
+    public void removeEntity(final Long id) {
+        Student removedStudent = null;
 
+        for (final Student student : students) {
+            if (student.getId().equals(id)) {
+                removedStudent = student;
+            }
+        }
+
+        students.remove(removedStudent);
     }
 }

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.epam.cleancodetest.R;
+import com.epam.themes.backend.IWebService;
+import com.epam.themes.backend.StudentsWebService;
 import com.epam.themes.backend.entities.Student;
 import com.epam.themes.uicomponents.StudentView;
 import com.epam.themes.uicomponents.base.BaseViewHolder;
@@ -24,6 +26,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private final LayoutInflater inflater;
     private final List<Student> students = new ArrayList<>();
+    private final IWebService<Student> studentsService = new StudentsWebService();
 
     public StudentsAdapter(final Context context) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -36,7 +39,8 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (viewType == ViewType.STUDENT) {
             return new BaseViewHolder<>(new StudentView(parent.getContext()));
         } else {
-            return new BaseViewHolder<>(inflater.inflate(R.layout.layout_progress, parent, false));
+            return new BaseViewHolder<>(inflater.inflate(R.layout.layout_progress, parent,
+                    false));
         }
     }
 
@@ -47,7 +51,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             final Student student = students.get(position);
 
             ((StudentView) viewHolder.itemView)
-//                    .setStudentAvatar(student.getAvatarId())
+                    .setStudentAvatar(student.getAvatarId())
                     .setStudentName(student.getName())
                     .setStudentHwCount(student.getHwCount());
         }
@@ -93,7 +97,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int LOADING = 1;
     }
 
-    public void onItemMove(int fromPosition, int toPosition) {
+    public void onItemMove(final int fromPosition, final int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(students, i, i + 1);
@@ -107,12 +111,13 @@ public class StudentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    public void onItemDismiss(int adapterPosition) {
+    public void onItemDismiss(final int adapterPosition) {
         deleteByIndex(adapterPosition);
     }
 
-    public void deleteByIndex(int i) {
-        students.remove(i);
-        notifyItemRemoved(i);
+    public void deleteByIndex(final int id) {
+        studentsService.removeEntity((long) id);
+        students.remove(id);
+        notifyItemRemoved(id);
     }
 }
